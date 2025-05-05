@@ -38,7 +38,7 @@ const Layout = ({ children }) => {
     'payPal.png',
     'AMEX.png',
     'iPay.png',
-    'oPay.png',
+    'Opay.png',
   ]
 
   const menu = [
