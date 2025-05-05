@@ -7,6 +7,9 @@ import { Divider, Pagination, Select } from 'antd'
 import { useRouter } from 'next/navigation'
 import axios from 'axios'
 
+axios.defaults.baseURL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3000'
+
+
 const Product = () => {
   const [products, setProducts] = useState([])
   const [filteredProducts, setFilteredProducts] = useState([])
