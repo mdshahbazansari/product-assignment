@@ -1,6 +1,8 @@
 import { Geist, Geist_Mono } from 'next/font/google'
 import './globals.css'
 
+import { Analytics } from '@vercel/analytics/react'
+
 import { AntdRegistry } from '@ant-design/nextjs-registry'
 import Layout from '@/components/Layout'
 
@@ -27,7 +29,9 @@ export default function RootLayout({ children }) {
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <AntdRegistry>
-          <Layout>{children}</Layout>
+          <Layout>
+            <Analytics>{children}</Analytics>
+          </Layout>
         </AntdRegistry>
       </body>
     </html>
