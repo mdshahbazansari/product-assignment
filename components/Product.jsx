@@ -85,7 +85,10 @@ const Product = () => {
     console.log('search:', value)
   }
 
-  if (loading) return <p>Loading...</p>
+  if (loading)
+    return (
+      <p className='items-center justify-center flex mx-auto'>Loading...</p>
+    )
 
   return (
     <div>
