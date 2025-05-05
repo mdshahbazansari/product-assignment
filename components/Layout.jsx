@@ -8,9 +8,11 @@ import Link from 'next/link'
 import Context from './Whishlist'
 import axios from 'axios'
 import { usePathname } from 'next/navigation'
+import axiosInstance from '@/utils/axiosInstance'
 
 // axios.defaults.baseURL = 'http://localhost:3000'
-axios.defaults.baseURL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3000'
+axios.defaults.baseURL =
+  process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3000'
 
 const Layout = ({ children }) => {
   const [menuOpen, setMenuOpen] = useState(false)
