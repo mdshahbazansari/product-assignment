@@ -4,9 +4,6 @@ import { useContext, useState } from 'react'
 import Context from './Whishlist'
 import Link from 'next/link'
 
-axios.defaults.baseURL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3000'
-
-
 const ProductList = ({ products, session }) => {
   const { watchlist, setWatchlist } = useContext(Context)
 

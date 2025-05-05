@@ -2,9 +2,6 @@
 
 import { useState } from 'react'
 
-axios.defaults.baseURL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3000'
-
-
 const SidebarFilter = ({ onGenderFilter }) => {
   const [selectedGender, setSelectedGender] = useState('All')
 

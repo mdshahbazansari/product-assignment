@@ -3,12 +3,9 @@
 import React, { useEffect, useState } from 'react'
 import ProductList from '@/components/ProductList'
 import SidebarFilter from '@/components/SidebarFilter'
-import { Divider, Pagination, Select, Spin } from 'antd'
+import { Divider, Pagination, Select } from 'antd'
 import { useRouter } from 'next/navigation'
 import axios from 'axios'
-
-axios.defaults.baseURL =
-  process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3000'
 
 const Product = () => {
   const [products, setProducts] = useState([])
@@ -17,8 +14,6 @@ const Product = () => {
   const router = useRouter()
   const [loading, setLoading] = useState(true)
   const [session, setSession] = useState(null)
-  const [currentPage, setCurrentPage] = useState(1)
-  const pageSize = 12 // Number of products per page
 
   useEffect(() => {
     const fetchData = async () => {
@@ -87,26 +82,10 @@ const Product = () => {
   }
 
   const onSearch = (value) => {
-    const searchTerm = value.toLowerCase()
-    const filtered = products.filter(
-      (product) =>
-        product.title.toLowerCase().includes(searchTerm) ||
-        product.description.toLowerCase().includes(searchTerm)
-    )
-    setFilteredProducts(filtered)
+    console.log('search:', value)
   }
 
-  const handlePageChange = (page) => {
-    setCurrentPage(page)
-  }
-
-  // Slice products for pagination
-  const paginatedProducts = filteredProducts.slice(
-    (currentPage - 1) * pageSize,
-    currentPage * pageSize
-  )
-
-  if (loading) return <Spin size='large' />
+  if (loading) return <p>Loading...</p>
 
   return (
     <div>
@@ -172,15 +151,14 @@ const Product = () => {
           {filterBtn && <SidebarFilter onGenderFilter={handleFilterChange} />}
 
           {/* Products */}
-          <ProductList products={paginatedProducts} session={session} />
+          <ProductList products={filteredProducts} session={session} />
         </section>
       </main>
       <div className='max-w-7xl mx-auto px-6 mt-10'>
         <Pagination
-          current={currentPage}
-          onChange={handlePageChange}
+          align='end'
+          defaultCurrent={1}
           total={filteredProducts.length}
-          pageSize={pageSize}
         />
       </div>
     </div>

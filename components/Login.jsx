@@ -6,9 +6,7 @@ import axios from 'axios'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 
-// axios.defaults.baseURL = 'http://localhost:3000'
 axios.defaults.baseURL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3000'
-
 
 const { Title } = Typography
 

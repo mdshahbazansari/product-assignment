@@ -1,8 +1,6 @@
 import { Geist, Geist_Mono } from 'next/font/google'
 import './globals.css'
-
 import { Analytics } from '@vercel/analytics/react'
-
 import { AntdRegistry } from '@ant-design/nextjs-registry'
 import Layout from '@/components/Layout'
 
@@ -30,7 +28,7 @@ export default function RootLayout({ children }) {
       >
         <AntdRegistry>
           <Layout>
-            <Analytics>{children}</Analytics>
+            {children} <Analytics />
           </Layout>
         </AntdRegistry>
       </body>
