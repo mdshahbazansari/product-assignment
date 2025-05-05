@@ -3,6 +3,19 @@ import { connectDB } from '@/lib/db'
 import bcrypt from 'bcryptjs'
 import { NextResponse } from 'next/server'
 
+// ✅ Handle OPTIONS (for CORS preflight)
+export async function OPTIONS() {
+  return NextResponse.json({}, {
+    status: 200,
+    headers: {
+      'Access-Control-Allow-Origin': 'https://product-assignment-amber.vercel.app',
+      'Access-Control-Allow-Methods': 'POST, OPTIONS',
+      'Access-Control-Allow-Headers': 'Content-Type, Authorization',
+    },
+  })
+}
+
+// ✅ Handle POST (signup)
 export async function POST(req) {
   await connectDB()
 
@@ -14,7 +27,12 @@ export async function POST(req) {
     if (existingUser) {
       return NextResponse.json(
         { message: 'User already exists' },
-        { status: 400 }
+        {
+          status: 400,
+          headers: {
+            'Access-Control-Allow-Origin': 'https://product-assignment-amber.vercel.app',
+          },
+        }
       )
     }
 
@@ -33,13 +51,23 @@ export async function POST(req) {
 
     return NextResponse.json(
       { message: 'User registered successfully' },
-      { status: 201 }
+      {
+        status: 201,
+        headers: {
+          'Access-Control-Allow-Origin': 'https://product-assignment-amber.vercel.app',
+        },
+      }
     )
   } catch (error) {
     console.error('Signup Error:', error)
     return NextResponse.json(
       { message: 'Internal Server Error' },
-      { status: 500 }
+      {
+        status: 500,
+        headers: {
+          'Access-Control-Allow-Origin': 'https://product-assignment-amber.vercel.app',
+        },
+      }
     )
   }
 }

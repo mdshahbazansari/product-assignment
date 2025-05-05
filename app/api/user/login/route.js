@@ -5,6 +5,20 @@ import bcrypt from 'bcryptjs'
 import jwt from 'jsonwebtoken'
 import { cookies } from 'next/headers'
 
+export async function OPTIONS() {
+  return NextResponse.json(
+    {
+      status: 200,
+      headers: {
+        'Access-Control-Allow-Origin':
+          'https://product-assignment-amber.vercel.app',
+        'Access-Control-Allow-Methods': 'POST, OPTIONS',
+        'Access-Control-Allow-Headers': 'Content-Type, Authorization',
+      },
+    }
+  )
+}
+
 export async function POST(req) {
   await connectDB()
   const { email, password } = await req.json()
@@ -12,7 +26,13 @@ export async function POST(req) {
   if (!email || !password) {
     return NextResponse.json(
       { message: 'Email and password are required' },
-      { status: 400 }
+      {
+        status: 400,
+        headers: {
+          'Access-Control-Allow-Origin':
+            'https://product-assignment-amber.vercel.app',
+        },
+      }
     )
   }
 
@@ -22,7 +42,13 @@ export async function POST(req) {
   if (!user) {
     return NextResponse.json(
       { message: 'Invalid credentials' },
-      { status: 401 }
+      {
+        status: 401,
+        headers: {
+          'Access-Control-Allow-Origin':
+            'https://product-assignment-amber.vercel.app',
+        },
+      }
     )
   }
 
@@ -31,7 +57,13 @@ export async function POST(req) {
   if (!isMatch) {
     return NextResponse.json(
       { message: 'Invalid credentials' },
-      { status: 401 }
+      {
+        status: 401,
+        headers: {
+          'Access-Control-Allow-Origin':
+            'https://product-assignment-amber.vercel.app',
+        },
+      }
     )
   }
 
@@ -44,13 +76,22 @@ export async function POST(req) {
     }
   )
 
+  // Set cookie
   cookies().set('token', token, {
     httpOnly: true,
     maxAge: 3600,
     path: '/',
   })
 
-  NextResponse.json({ message: 'Login successful' })
-
-  return NextResponse.json({ token, user }, { status: 200 })
+  // ✅ Return with CORS header
+  return NextResponse.json(
+    { message: 'Login successful', token, user },
+    {
+      status: 200,
+      headers: {
+        'Access-Control-Allow-Origin':
+          'https://product-assignment-amber.vercel.app',
+      },
+    }
+  )
 }
