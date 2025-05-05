@@ -1,18 +1,27 @@
 'use client'
 import React, { useState } from 'react'
-import { Form, Input, Button, Card, Typography, message } from 'antd'
+import {
+  Form,
+  Input,
+  Button,
+  Card,
+  Typography,
+  message as antdMessage,
+} from 'antd'
 import { LockOutlined, MailOutlined } from '@ant-design/icons'
 import axios from 'axios'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 
-axios.defaults.baseURL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3000'
+axios.defaults.baseURL =
+  process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3000'
 
 const { Title } = Typography
 
 const Login = () => {
   const [loading, setLoading] = useState(false)
   const router = useRouter()
+  const [message, contextHolder] = antdMessage.useMessage()
 
   const login = async (values) => {
     setLoading(true)
@@ -29,6 +38,7 @@ const Login = () => {
 
   return (
     <div className='flex justify-center items-center'>
+      {contextHolder}
       <Card className='w-96 shadow-lg rounded-lg '>
         <Title level={3} className='text-center'>
           Login

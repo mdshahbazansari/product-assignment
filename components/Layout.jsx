@@ -3,18 +3,27 @@
 import 'remixicon/fonts/remixicon.css'
 import React, { useEffect, useState } from 'react'
 import { HiMenu } from 'react-icons/hi'
-import { Badge, Breadcrumb, Divider, Drawer, Select } from 'antd'
+import {
+  Badge,
+  Breadcrumb,
+  Divider,
+  Drawer,
+  Select,
+  message as antdMessage,
+} from 'antd'
 import Link from 'next/link'
 import Context from './Whishlist'
 import axios from 'axios'
 import { usePathname } from 'next/navigation'
 
-axios.defaults.baseURL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3000'
+axios.defaults.baseURL =
+  process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3000'
 
 const Layout = ({ children }) => {
   const [menuOpen, setMenuOpen] = useState(false)
   const [watchlist, setWatchlist] = useState([])
   const [session, setSession] = useState()
+  const [message, contextHolder] = antdMessage.useMessage()
 
   const socialIcon = [
     'ri-facebook-fill',
@@ -73,7 +82,8 @@ const Layout = ({ children }) => {
   const handleLogout = async () => {
     try {
       await axios.post('/api/user/logout')
-      setSession(null)
+      setSession('')
+      message.success('Logout success...')
       router.push('/login')
     } catch (error) {
       console.error('Logout failed', error)
@@ -107,6 +117,7 @@ const Layout = ({ children }) => {
 
   return (
     <div>
+      {contextHolder}
       <div className='bg-black'>
         <div className='px-4 w-full h-10 text-rose-500 flex justify-between items-center'>
           <div>Email:mettamuse@gmail.com</div>
