@@ -174,7 +174,7 @@ const Layout = ({ children }) => {
             {session ? (
               <button
                 onClick={handleLogout}
-                className='cursor-pointer text-xl bg-gray-200 px-4 py-1 rounded'
+                className='cursor-pointer text-xl bg-gray-200 px-2 py-1 rounded'
               >
                 <i class='ri-logout-circle-line text-2xl'></i>
               </button>
